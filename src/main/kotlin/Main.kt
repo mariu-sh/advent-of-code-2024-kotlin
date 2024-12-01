@@ -1,8 +1,8 @@
 package org.example
 
-import org.example.Day1.DayOne
+import day1.DayOne
 
 fun main() {
+    println("Day 1 Solutions:")
     DayOne().solve()
-
 }
