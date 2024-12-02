@@ -1,8 +1,6 @@
 package day2
 
 import org.assertj.core.api.Assertions.assertThat
-import org.example.day2.DayTwo.Report
-import org.example.day2.DayTwo.TextInput
 import kotlin.test.Test
 
 class DayTwoTest {
@@ -14,7 +12,16 @@ class DayTwoTest {
         val reports: List<Report> = TextInput.fromPath(testInputFilePath)
             .getReportsValues()
             .map { Report(it) }
-        val safeReports = reports.filter { it.isSafe() }
+        val safeReports = reports.filter { it.isBasicSafe() }
         assertThat(safeReports).hasSize(2)
+    }
+
+    @Test
+    fun shouldCalculateSafeReportsWithDampening() {
+        val reports: List<Report> = TextInput.fromPath(testInputFilePath)
+            .getReportsValues()
+            .map { Report(it) }
+        val safeReports = reports.filter { it.isSafeWithDampenedPatch() }
+        assertThat(safeReports).hasSize(4)
     }
 }

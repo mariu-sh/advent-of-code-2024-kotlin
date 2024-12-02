@@ -8,5 +8,5 @@ fun main() {
     DayOne().solve()
 
     println("Day 2 Solutions:")
-    DayTwo().partOneSolution()
+    DayTwo().solve()
 }
