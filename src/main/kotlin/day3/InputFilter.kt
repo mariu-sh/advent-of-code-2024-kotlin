@@ -1,23 +1,45 @@
 package org.example.day3
 
+import day3.IncludingEnabler
+import org.example.day3.Patterns.*
+
 class InputFilter(private val input: String) {
     companion object {
-        val MUL_REGEX = Regex("""mul\(\d{1,3},\d{1,3}\)""")
-
         fun from(path: String): InputFilter = InputFilter(TextInput.fromPath(path).read())
     }
 
-    fun filterAllMulValues(): Sequence<Pair<Int, Int>> {
-        return getAllMulFromInput().map { it.value }
-            .map { it.removePrefix("mul(").removeSuffix(")").split(",") }
-            .map { Pair(it[0].toInt(), it[1].toInt()) }
+    private val includingEnabler = IncludingEnabler()
+
+    private val combinedRegex by lazy {
+        Regex("${MUL.pattern}|${DO.pattern}|${DONT.pattern}")
     }
 
-    private fun getAllMulFromInput(): Sequence<MatchResult> {
-        return MUL_REGEX.findAll(input)
+    fun filterAllMulValues(): Sequence<Pair<Int, Int>> {
+        return MUL.regex.findAll(input)
+            .map(MatchResult::value)
+            .map(::parseValuesFromMulExpression)
+    }
+
+    private fun parseValuesFromMulExpression(mulExpression: String): Pair<Int, Int> {
+        return mulExpression.removePrefix("mul(")
+            .removeSuffix(")")
+            .split(",")
+            .let { it[0].toInt() to it[1].toInt() }
     }
 
     fun filterLimitedMulValues(): Sequence<Pair<Int, Int>> {
-        TODO("Not yet implemented")
+        return combinedRegex.findAll(input)
+            .sortedBy { it.range.first }
+            .filter(::isEnabledMul)
+            .map(MatchResult::value)
+            .map(::parseValuesFromMulExpression)
     }
+
+    private fun isEnabledMul(match: MatchResult) =
+        when (Patterns.fromMatchResult(match)) {
+            DONT -> includingEnabler.disable().let { false }
+            DO -> includingEnabler.enable().let { false }
+            MUL -> includingEnabler.shouldInclude
+        }
+
 }

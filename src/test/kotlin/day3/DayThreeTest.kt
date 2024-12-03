@@ -20,6 +20,15 @@ class DayThreeTest {
 
             assertThat(calculator.calculate(values)).isEqualTo(161)
         }
+
+        @Test
+        fun shouldCalculateLimited() {
+            val inputPath = "src/test/resources/day3/testInputPart2.txt"
+
+            val values = InputFilter.from(inputPath).filterLimitedMulValues()
+
+            assertThat(calculator.calculate(values)).isEqualTo(48)
+        }
     }
 
     @Nested
@@ -31,6 +40,15 @@ class DayThreeTest {
             val values = InputFilter.from(inputPath).filterAllMulValues()
 
             assertThat(values.toList().size).isEqualTo(4)
+        }
+
+        @Test
+        fun shouldFilterLimited() {
+            val inputPath = "src/test/resources/day3/testInputPart2.txt"
+
+            val values = InputFilter.from(inputPath).filterLimitedMulValues()
+
+            assertThat(values.toList().size).isEqualTo(2)
         }
     }
 }
