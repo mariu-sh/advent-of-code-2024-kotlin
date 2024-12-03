@@ -8,8 +8,9 @@ class HistoriansLocations(
 ) {
     //this cannot be Map, as keys are a set, and we can get duplicated values within locations1
     private val locations1OccurrencesInLocations2: List<Int> by lazy {
+        val locationCounts = sortedLocations2.groupingBy { it }.eachCount()
         sortedLocations1.map { location1 ->
-            sortedLocations2.count { it == location1 }
+            locationCounts[location1] ?: 0
         }
     }
 
