@@ -16,12 +16,11 @@ class Filter(private val input: String) {
 
     fun filterAllMulValues(): Sequence<Pair<Int, Int>> {
         return MUL.regex.findAll(input)
-            .map(MatchResult::value)
-            .map(::parseValuesFromMulExpression)
+            .map(::parseValuesFromMulMatch)
     }
 
-    private fun parseValuesFromMulExpression(mulExpression: String): Pair<Int, Int> {
-        return mulExpression.removePrefix("mul(")
+    private fun parseValuesFromMulMatch(mulMatch: MatchResult): Pair<Int, Int> {
+        return mulMatch.value.removePrefix("mul(")
             .removeSuffix(")")
             .split(",")
             .let { it[0].toInt() to it[1].toInt() }
@@ -30,12 +29,11 @@ class Filter(private val input: String) {
     fun filterLimitedMulValues(): Sequence<Pair<Int, Int>> {
         return combinedRegex.findAll(input)
             .sortedBy { it.range.first }
-            .filter(::isEnabledMul)
-            .map(MatchResult::value)
-            .map(::parseValuesFromMulExpression)
+            .filter(::shouldIncludeMatch)
+            .map(::parseValuesFromMulMatch)
     }
 
-    private fun isEnabledMul(match: MatchResult) =
+    private fun shouldIncludeMatch(match: MatchResult) =
         when (Patterns.fromMatchResult(match)) {
             DONT -> switch.disable().let { false }
             DO -> switch.enable().let { false }
