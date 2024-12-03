@@ -1,4 +1,4 @@
-package day1
+package org.example.day1
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import java.io.InputStream

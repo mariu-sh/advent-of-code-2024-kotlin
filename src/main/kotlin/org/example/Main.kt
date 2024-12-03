@@ -1,6 +1,6 @@
 package org.example
 
-import day1.DayOne
+import org.example.day1.DayOne
 import org.example.day2.DayTwo
 import org.example.day3.DayThree
 

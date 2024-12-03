@@ -1,4 +1,4 @@
-package day3
+package org.example.day3
 
 class InclusionSwitch {
     var shouldInclude = true

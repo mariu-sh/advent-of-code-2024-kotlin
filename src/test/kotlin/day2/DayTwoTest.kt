@@ -1,6 +1,8 @@
 package day2
 
 import org.assertj.core.api.Assertions.assertThat
+import org.example.day2.Report
+import org.example.day2.TextInput
 import kotlin.test.Test
 
 class DayTwoTest {

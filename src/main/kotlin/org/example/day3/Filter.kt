@@ -1,6 +1,5 @@
 package org.example.day3
 
-import day3.InclusionSwitch
 import org.example.day3.Patterns.*
 
 class Filter(private val input: String) {

@@ -1,4 +1,4 @@
-package day2
+package org.example.day2
 
 import kotlin.math.abs
 
