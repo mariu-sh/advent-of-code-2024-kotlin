@@ -2,6 +2,7 @@ package org.example
 
 import day1.DayOne
 import org.example.day2.DayTwo
+import org.example.day3.DayThree
 
 fun main() {
     println("Day 1 Solutions:")
@@ -9,4 +10,8 @@ fun main() {
 
     println("Day 2 Solutions:")
     DayTwo().solve()
+
+    println("Day 3 Solutions:")
+    DayThree().solve()
 }
+
