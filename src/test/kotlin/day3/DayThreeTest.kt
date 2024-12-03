@@ -9,15 +9,14 @@ import kotlin.test.Test
 class DayThreeTest {
 
     val calculator = Calculator()
-    val testInputPathPart1 = "src/test/resources/day3/testInput.txt"
-    val testInputPathPart2 = "src/test/resources/day3/testInputPart2.txt"
+    val testInputPath = "src/test/resources/day3/testInput.txt"
     val inputPath = "src/main/resources/day3/input.txt"
 
     @Nested
     inner class CalculatorTest {
         @Test
         fun shouldCalculateAll() {
-            val values = Filter.from(testInputPathPart1).filterAllMulValues()
+            val values = Filter.from(this@DayThreeTest.testInputPath).filterAllMulValues()
 
             assertThat(calculator.calculate(values)).isEqualTo(161)
         }
@@ -31,7 +30,7 @@ class DayThreeTest {
 
         @Test
         fun shouldCalculateLimited() {
-            val values = Filter.from(testInputPathPart2).filterLimitedMulValues()
+            val values = Filter.from(this@DayThreeTest.testInputPath).filterLimitedMulValues()
 
             assertThat(calculator.calculate(values)).isEqualTo(48)
         }
@@ -48,7 +47,7 @@ class DayThreeTest {
     inner class FilterTest {
         @Test
         fun shouldFilterAll() {
-            val values = Filter.from(testInputPathPart1).filterAllMulValues()
+            val values = Filter.from(this@DayThreeTest.testInputPath).filterAllMulValues()
 
             assertThat(values.toList().size).isEqualTo(4)
         }
@@ -62,7 +61,7 @@ class DayThreeTest {
 
         @Test
         fun shouldFilterLimited() {
-            val values = Filter.from(testInputPathPart2).filterLimitedMulValues()
+            val values = Filter.from(this@DayThreeTest.testInputPath).filterLimitedMulValues()
 
             assertThat(values.toList().size).isEqualTo(2)
         }
