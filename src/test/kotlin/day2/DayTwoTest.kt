@@ -6,14 +6,25 @@ import kotlin.test.Test
 class DayTwoTest {
 
     private val testInputFilePath = "src/test/resources/day2/testInput.txt"
+    private val inputFilePath = "src/main/resources/day2/input.txt"
 
     @Test
-    fun shouldCalculateSafeReports() {
+    fun shouldCalculateSafeReportsWithoutDampening() {
         val reports: List<Report> = TextInput.fromPath(testInputFilePath)
             .getReportsValues()
             .map { Report(it) }
         val safeReports = reports.filter { it.isBasicSafe() }
         assertThat(safeReports).hasSize(2)
+    }
+
+    @Test
+    fun shouldCalculateSafeReportsWithoutDampeningFromInputFile() {
+        val reports: List<Report> = TextInput.fromPath(inputFilePath)
+            .getReportsValues()
+            .map { Report(it) }
+
+        val safeReports = reports.filter { it.isBasicSafe() }
+        assertThat(safeReports).hasSize(252)
     }
 
     @Test
@@ -23,5 +34,15 @@ class DayTwoTest {
             .map { Report(it) }
         val safeReports = reports.filter { it.isSafeWithDampenedPatch() }
         assertThat(safeReports).hasSize(4)
+    }
+
+    @Test
+    fun shouldCalculateSafeReportsWithDampeningFromInputFile() {
+        val reports: List<Report> = TextInput.fromPath(inputFilePath)
+            .getReportsValues()
+            .map { Report(it) }
+
+        val safeReports = reports.filter { it.isSafeWithDampenedPatch() }
+        assertThat(safeReports).hasSize(324)
     }
 }
