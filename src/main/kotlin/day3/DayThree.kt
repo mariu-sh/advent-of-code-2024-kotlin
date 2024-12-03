@@ -5,9 +5,9 @@ class DayThree {
 
     fun solve() {
         val calculator = Calculator()
-        val inputFilter = InputFilter.from(inputPath)
+        val filter = Filter.from(inputPath)
 
-        println("All multiplications: ${calculator.calculate(inputFilter.filterAllMulValues())}")
-        println("Limited multiplications: ${calculator.calculate(inputFilter.filterLimitedMulValues())}")
+        println("All multiplications: ${calculator.calculate(filter.filterAllMulValues())}")
+        println("Limited multiplications: ${calculator.calculate(filter.filterLimitedMulValues())}")
     }
 }

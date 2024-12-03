@@ -1,14 +1,14 @@
 package org.example.day3
 
-import day3.IncludingEnabler
+import day3.InclusionSwitch
 import org.example.day3.Patterns.*
 
-class InputFilter(private val input: String) {
+class Filter(private val input: String) {
     companion object {
-        fun from(path: String): InputFilter = InputFilter(TextInput.fromPath(path).read())
+        fun from(path: String): Filter = Filter(Input.fromPath(path).read())
     }
 
-    private val includingEnabler = IncludingEnabler()
+    private val switch = InclusionSwitch()
 
     private val combinedRegex by lazy {
         Regex("${MUL.pattern}|${DO.pattern}|${DONT.pattern}")
@@ -37,9 +37,9 @@ class InputFilter(private val input: String) {
 
     private fun isEnabledMul(match: MatchResult) =
         when (Patterns.fromMatchResult(match)) {
-            DONT -> includingEnabler.disable().let { false }
-            DO -> includingEnabler.enable().let { false }
-            MUL -> includingEnabler.shouldInclude
+            DONT -> switch.disable().let { false }
+            DO -> switch.enable().let { false }
+            MUL -> switch.shouldInclude
         }
 
 }

@@ -1,6 +1,6 @@
 package day3
 
-class IncludingEnabler {
+class InclusionSwitch {
     var shouldInclude = true
         private set
 
