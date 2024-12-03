@@ -6,24 +6,31 @@ class DayThree {
 
     fun solve(){
         val calculator = Calculator.fromInput("src/main/resources/day3/input.txt")
-        println("Result: ${calculator.calculate()}")
+        println("Result: ${calculator.calculateAllMultiplications()}")
+        println("Filtered Result: ${calculator.calculateFilteredMultiplications()}")
     }
 
-    class Calculator(val input: Sequence<Pair<Int, Int>>) {
+    class Calculator(private val inputFilter: InputFilter) {
         companion object {
             fun fromInput(inputPath: String): Calculator {
-                return Calculator(InputFilter.fromPath(inputPath).sequenceValues())
+                return Calculator(InputFilter.fromPath(inputPath))
             }
         }
 
-        fun calculate(): Int {
-            return input.map { it.first * it.second }.sum()
+        fun calculateAllMultiplications(): Int {
+            return inputFilter.allMulValues.map { it.first * it.second }.sum()
+        }
+
+        fun calculateFilteredMultiplications(): Int {
+            return inputFilter.filteredMulValues.map { it.first * it.second }.sum()
         }
     }
 
-    class InputFilter(val input: String) {
+    class InputFilter(private val input: String) {
         companion object {
-            val PATTERN = Regex("""mul\(\d{1,3},\d{1,3}\)""")
+            val MUL_PATTERN = Regex("""mul\(\d{1,3},\d{1,3}\)""")
+            val DO_PATTERN = Regex("do()")
+            val DONT_PATTERN = Regex("don't()")
 
             fun fromPath(path: String): InputFilter {
                 return fromString(InputReader.fromPath(path).read())
@@ -34,15 +41,36 @@ class DayThree {
             }
         }
 
-        fun sequenceValues(): Sequence<Pair<Int, Int>> {
-            return sequencePatterns().map { mulPattern ->
+        val allMulValues by lazy { getMulValues(sequenceAllMulPatterns().map { it.value }) }
+        val filteredMulValues by lazy { getMulValues(getFilteredMulPatterns().map { it.value }) }
+
+        private fun getMulValues(mulPatterns: Sequence<String>): Sequence<Pair<Int, Int>> {
+            return mulPatterns.map { mulPattern ->
                 val values = mulPattern.removePrefix("mul(").removeSuffix(")").split(",")
                 Pair(values[0].toInt(), values[1].toInt())
             }
         }
 
-        fun sequencePatterns(): Sequence<String> {
-            return PATTERN.findAll(input).map { it.value }
+        private fun getFilteredMulPatterns(): Sequence<MatchResult> {
+            val allMatchersSorted = listOf(MUL_PATTERN, DO_PATTERN, DONT_PATTERN)
+                .map { it.findAll(input) }
+                .flatMap { it }
+                .sortedBy { it.range.first }
+
+            var isEnabled = true
+            val filteredMulMatchers = mutableListOf<MatchResult>()
+            allMatchersSorted.forEach { matcher ->
+                when {
+                    MUL_PATTERN.matches(matcher.value) -> if(isEnabled) filteredMulMatchers.add(matcher)
+                    DO_PATTERN.matches(matcher.value) -> isEnabled = true
+                    DONT_PATTERN.matches(matcher.value) -> isEnabled = false
+                }
+            }
+            return filteredMulMatchers.asSequence()
+        }
+
+        private fun sequenceAllMulPatterns(): Sequence<MatchResult> {
+            return MUL_PATTERN.findAll(input)
         }
     }
 

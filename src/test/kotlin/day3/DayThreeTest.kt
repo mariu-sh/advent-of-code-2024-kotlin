@@ -9,8 +9,17 @@ class DayThreeTest {
     fun shouldCalculate() {
         val calculator = DayThree.Calculator.fromInput("src/test/resources/day3/testInput.txt")
 
-        val result = calculator.calculate()
+        val result = calculator.calculateAllMultiplications()
 
         assertThat(result).isEqualTo(161)
+    }
+
+    @Test
+    fun shouldCalculateFiltered() {
+        val calculator = DayThree.Calculator.fromInput("src/test/resources/day3/testInput2.txt")
+
+        val result = calculator.calculateFilteredMultiplications()
+
+        assertThat(result).isEqualTo(48)
     }
 }
