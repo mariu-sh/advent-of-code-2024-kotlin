@@ -33,4 +33,12 @@ class DayFourTest {
 
         assertThat(result).isEqualTo(9)
     }
+
+    @Test
+    fun `shouldCalculateX-MASOccurencesFromInputFile`(){
+        val dayFour = DayFour(inputFilePath)
+        val result = dayFour.solvePartTwo()
+
+        assertThat(result).isEqualTo(1992)
+    }
 }
