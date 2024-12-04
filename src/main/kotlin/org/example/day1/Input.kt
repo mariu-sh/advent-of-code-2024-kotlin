@@ -16,16 +16,19 @@ class Input(
             var input = Input()
             csvReader().open(readInputFile(path)) {
                 readAllAsSequence().forEach { row ->
-                    val splitRow = row.first().split("   ")
-                    input = input.appendSingleRow(
-                        SingleRow(
-                            splitRow[0].toInt(),
-                            splitRow[1].toInt()
-                        )
-                    )
+                    val singleRow = parseRow(row)
+                    input = input.appendSingleRow(singleRow)
                 }
             }
             return input
+        }
+
+        private fun parseRow(row: List<String>): Pair<Int, Int> {
+            val parsedValues = row.first().split("   ")
+            return Pair(
+                parsedValues[0].toInt(),
+                parsedValues[1].toInt()
+            )
         }
 
         private fun readInputFile(path: Path): InputStream {
@@ -33,12 +36,10 @@ class Input(
         }
     }
 
-    private fun appendSingleRow(singleRow: SingleRow): Input {
+    private fun appendSingleRow(singleRow: Pair<Int, Int>): Input {
         return Input(
-            group1 + singleRow.number1,
-            group2 + singleRow.number2
+            group1 + singleRow.first,
+            group2 + singleRow.second
         )
     }
-
-    data class SingleRow(val number1: Int, val number2: Int)
 }
