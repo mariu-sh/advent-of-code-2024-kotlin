@@ -1,10 +1,11 @@
 package org.example.day3
 
 import org.example.day3.Patterns.*
+import org.example.shared.TextFileInput
 
 class Filter(private val input: String) {
     companion object {
-        fun from(path: String): Filter = Filter(Input.fromPath(path).read())
+        fun from(path: String): Filter = Filter(TextFileInput.fromPath(path).read())
     }
 
     private val switch = InclusionSwitch()

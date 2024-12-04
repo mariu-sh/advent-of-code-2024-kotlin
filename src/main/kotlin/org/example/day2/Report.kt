@@ -5,9 +5,17 @@ import kotlin.math.abs
 class Report(
     private val values: List<Int>
 ) {
+    object Reports {
+        fun fromLines(lines: List<String>): List<Report> = lines.map { fromInputLine(it) }
+    }
+
     companion object {
         const val MAX_SAFE_ABS_VALUE_CHANGE_THRESHOLD = 3
         const val MIN_SAFE_ABS_VALUE_CHANGE_THRESHOLD = 1
+
+        fun fromInputLine(inputLine: String): Report = Report(
+            inputLine.split(" ").map { it.toInt() }
+        )
     }
 
     fun isBasicSafe(): Boolean {
