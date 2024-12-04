@@ -5,7 +5,7 @@ import kotlin.test.Test
 
 class DayFourTest {
     val testInputFilePath = "src/test/resources/day4/testInput.txt"
-    val inputFilePath = "src/test/resources/day4/input.txt"
+    val inputFilePath = "src/main/resources/day4/input.txt"
 
     @Test
     fun shouldCalculateTotalXMASOccurences() {
@@ -23,5 +23,14 @@ class DayFourTest {
         val result = dayFour.solvePartOne()
 
         assertThat(result).isEqualTo(2571)
+    }
+
+    @Test
+    fun `shouldCalculateX-MASOccurences`(){
+        val dayFour = DayFour(testInputFilePath)
+
+        val result = dayFour.solvePartTwo()
+
+        assertThat(result).isEqualTo(9)
     }
 }

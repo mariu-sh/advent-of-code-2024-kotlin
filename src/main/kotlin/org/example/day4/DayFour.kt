@@ -26,6 +26,27 @@ class DayFour(private val inputPath: String = "src/main/resources/day4/input.txt
 
         return totalCounter
     }
+
+    fun solvePartTwo(): Int {
+        //1. Find all A letters starting in range rows: 1..matrix.size-1 chars: 1..row.size
+        //2. For each letter A check diagonals (one diagonal, and other) -> Pairs
+        //3. Pair should be either M-S or S-M both!!
+        var counter = 0
+        val validPairs = arrayOf(Pair('M', 'S'), Pair('S', 'M'))
+        val matrix = Input.fromPath(inputPath).readlines().map { it.toCharArray() }
+        for(charIndex in 1..matrix[0].size-2){
+            for(rowIndex in 1..matrix.size-2){
+                if(matrix[rowIndex][charIndex] == 'A'){
+                    val diagPair1 = Pair(matrix[rowIndex-1][charIndex-1], matrix[rowIndex+1][charIndex+1])
+                    val diagPair2 = Pair(matrix[rowIndex+1][charIndex-1], matrix[rowIndex-1][charIndex+1])
+                    if(diagPair1 in validPairs && diagPair2 in validPairs){
+                        counter++
+                    }
+                }
+            }
+        }
+        return counter
+    }
 }
 
 class WordFinder(private val wordToFind: Array<Char> = arrayOf('X', 'M', 'A', 'S')) {

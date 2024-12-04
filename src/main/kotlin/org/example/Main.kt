@@ -16,6 +16,8 @@ fun main() {
     DayThree().solve()
 
     println("Day 4 Solutions:")
-    DayFour().solvePartOne()
+    val dayFour = DayFour()
+    println("All occurences of XMAS: ${dayFour.solvePartOne()}")
+    println("All occurences of X-MAS: ${dayFour.solvePartTwo()}")
 }
 
