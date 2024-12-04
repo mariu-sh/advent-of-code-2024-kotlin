@@ -10,4 +10,5 @@ class Input(
     }
 
     fun read(): String = String(input.readAllBytes()).replace("\n", "")
+    fun readlines(): List<String> = input.bufferedReader().readLines()
 }
