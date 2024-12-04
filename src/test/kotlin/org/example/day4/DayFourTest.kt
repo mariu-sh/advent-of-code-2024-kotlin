@@ -4,40 +4,33 @@ import org.assertj.core.api.Assertions.assertThat
 import kotlin.test.Test
 
 class DayFourTest {
-    val testInputFilePath = "src/test/resources/day4/testInput.txt"
-    val inputFilePath = "src/main/resources/day4/input.txt"
+    private val testInputFilePath = "src/test/resources/day4/testInput.txt"
+    private val inputFilePath = "src/main/resources/day4/input.txt"
 
     @Test
-    fun shouldCalculateTotalXMASOccurences() {
-        val dayFour = DayFour(testInputFilePath)
-
-        val result = dayFour.solvePartOne()
+    fun shouldCalculateTotalXMASOccurrences() {
+        val result = DayFour(testInputFilePath).solvePartOne()
 
         assertThat(result).isEqualTo(18)
     }
 
     @Test
-    fun shouldCalculateTotalXMASOccurencesFromInputFile() {
-        val dayFour = DayFour(inputFilePath)
-
-        val result = dayFour.solvePartOne()
+    fun shouldCalculateTotalXMASOccurrencesFromInputFile() {
+        val result = DayFour(inputFilePath).solvePartOne()
 
         assertThat(result).isEqualTo(2571)
     }
 
     @Test
-    fun `shouldCalculateX-MASOccurences`(){
-        val dayFour = DayFour(testInputFilePath)
-
-        val result = dayFour.solvePartTwo()
+    fun shouldCalculateXmasShapeOccurrences(){
+        val result = DayFour(testInputFilePath).solvePartTwo()
 
         assertThat(result).isEqualTo(9)
     }
 
     @Test
-    fun `shouldCalculateX-MASOccurencesFromInputFile`(){
-        val dayFour = DayFour(inputFilePath)
-        val result = dayFour.solvePartTwo()
+    fun shouldCalculateXmasShapeOccurrencesFromInputFile(){
+        val result = DayFour(inputFilePath).solvePartTwo()
 
         assertThat(result).isEqualTo(1992)
     }
