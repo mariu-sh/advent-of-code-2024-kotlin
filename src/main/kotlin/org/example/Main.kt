@@ -4,6 +4,7 @@ import org.example.day1.DayOne
 import org.example.day2.DayTwo
 import org.example.day3.DayThree
 import org.example.day4.DayFour
+import org.example.day5.DayFive
 
 fun main() {
     println("Day 1 Solutions:")
@@ -19,5 +20,10 @@ fun main() {
     val dayFour = DayFour()
     println("All occurrences of XMAS: ${dayFour.solvePartOne()}")
     println("All occurrences of X-MAS: ${dayFour.solvePartTwo()}")
+
+    println("Day 5 Solutions:")
+    val dayFiveResult = DayFive().solve()
+    println("Sum of middle elements for ordered updates: ${dayFiveResult.first}")
+    println("Sum of middle elements for unordered updates (after sorting): ${dayFiveResult.second}")
 }
 
