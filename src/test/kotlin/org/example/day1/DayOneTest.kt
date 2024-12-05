@@ -1,7 +1,6 @@
-package day1
+package org.example.day1
 
 import org.assertj.core.api.Assertions.assertThat
-import org.example.day1.HistoriansLocations
 import kotlin.test.Test
 
 class DayOneTest {

@@ -1,8 +1,6 @@
-package day3
+package org.example.day3
 
 import org.assertj.core.api.Assertions.assertThat
-import org.example.day3.Calculator
-import org.example.day3.Filter
 import org.junit.jupiter.api.Nested
 import kotlin.test.Test
 

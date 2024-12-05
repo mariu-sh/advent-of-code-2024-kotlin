@@ -1,7 +1,6 @@
-package day2
+package org.example.day2
 
 import org.assertj.core.api.Assertions.assertThat
-import org.example.day2.Report
 import org.example.day2.Report.Reports
 import org.example.shared.TextFileInput
 import kotlin.test.Test
