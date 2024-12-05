@@ -10,12 +10,14 @@ class DayFiveTest{
     @Test
     fun shouldSumMiddleItemInCorrectlyOrderedUpdates() {
         val result = DayFive(testInputFilePath).solvePartOne()
-        assertThat(result).isEqualTo(143)
+        assertThat(result.first).isEqualTo(143)
+        assertThat(result.second).isEqualTo(123)
     }
 
     @Test
     fun shouldSumMiddleItemInCorrectlyOrderedUpdatesFromInputFile() {
         val result = DayFive(inputFilePath).solvePartOne()
-        assertThat(result).isEqualTo(4637)
+        assertThat(result.first).isEqualTo(4637)
+        assertThat(result.second).isEqualTo(6370)
     }
 }
