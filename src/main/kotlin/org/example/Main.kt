@@ -22,7 +22,8 @@ fun main() {
     println("All occurrences of X-MAS: ${dayFour.solvePartTwo()}")
 
     println("Day 5 Solutions:")
-    val dayFive = DayFive()
-    println("Sum of middle elements for ordered updates: ${dayFive.solvePartOne()}")
+    val dayFiveResult = DayFive().solve()
+    println("Sum of middle elements for ordered updates: ${dayFiveResult.first}")
+    println("Sum of middle elements for unordered updates (after sorting): ${dayFiveResult.second}")
 }
 

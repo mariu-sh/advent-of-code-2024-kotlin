@@ -3,7 +3,7 @@ package org.example.day5
 import org.example.shared.TextFileInput
 
 class DayFive(val inputFilePath: String = "src/main/resources/day5/input.txt") {
-    fun solvePartOne(): Pair<Int, Int> {
+    fun solve(): Pair<Int, Int> {
         val orderDefinitions = OrderDefinitions()
         val updates = Updates()
         TextFileInput.fromPath(inputFilePath).readLines().forEach { line ->
