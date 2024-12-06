@@ -13,4 +13,11 @@ class DaySixTest {
 
         assertThat(result.first).isEqualTo(41)
     }
+
+    @Test
+    fun shouldSolvePartOneFromInput() {
+        val result = DaySix().solve()
+
+        assertThat(result.first).isEqualTo(5153)
+    }
 }
