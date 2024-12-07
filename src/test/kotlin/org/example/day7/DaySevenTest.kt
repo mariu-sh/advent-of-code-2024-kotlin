@@ -24,4 +24,10 @@ class DaySevenTest{
         val result = DaySeven(testInputPath).solve()
         assertThat(result.second).isEqualTo(11387L)
     }
+
+    @Test
+    fun shouldSolvePartTwoFromRealInput(){
+        val result = DaySeven(realInputPath).solve()
+        assertThat(result.second).isEqualTo(97902809384118L)
+    }
 }
