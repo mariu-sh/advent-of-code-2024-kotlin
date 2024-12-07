@@ -6,9 +6,11 @@ class DaySeven(private val inputFilePath: String = "src/main/resources/day7/inpu
 
     fun solve(): Pair<Long, Long> {
 
-        val partOneResult = Equations.fromInput(inputFilePath).sumSolvableEquationsResults()
+        val equations = Equations.fromInput(inputFilePath)
+        val partOneResult = equations.sumResultsSolvableByPlusAndMultiply()
+        val partTwoResult = equations.sumResultsSolvableWithConcatenation()
 
-        return partOneResult to 0L
+        return partOneResult to partTwoResult
     }
 
     class Equations(private val _equations: List<Equation>) {
@@ -18,27 +20,39 @@ class DaySeven(private val inputFilePath: String = "src/main/resources/day7/inpu
             )
         }
 
-        fun sumSolvableEquationsResults(): Long = solvableEquations().sumOf { it.result }
+        fun sumResultsSolvableWithConcatenation() = solvableEquationsWithConcatenation().sumOf { it.result }
+        fun sumResultsSolvableByPlusAndMultiply() = solvableEquations().sumOf { it.result }
 
-        private fun solvableEquations(): List<Equation> = _equations.filter { it.isSolvable() }
+        private fun solvableEquationsWithConcatenation() = _equations.filter { it.isSolvableWithConcatenation() }
+        private fun solvableEquations() = _equations.filter { it.isSolvableWithPlusAndMul() }
     }
 
     class Equation(val result: Long, val variables: List<Long>) {
         companion object {
             fun fromLine(line: String): Equation = with(line.split(":")) {
-                Equation(result = this[0].trim().toLong(), variables = this[1].trim().split(" ").map { it.trim().toLong() })
+                Equation(
+                    result = this[0].trim().toLong(),
+                    variables = this[1].trim().split(" ").map { it.trim().toLong() })
             }
         }
 
-        val numberOfOperations: Int
+        private val numberOfOperations: Int
             get() = variables.size - 1
 
-        val times: (Long, Long) -> Long = { a, b -> a * b }
-        val plus: (Long, Long) -> Long = { a, b -> a + b }
+        private val times: (Long, Long) -> Long = { a, b -> a * b }
+        private val plus: (Long, Long) -> Long = { a, b -> a + b }
+        private val concatenate: (Long, Long) -> Long = { a, b -> (a.toString() + b.toString()).toLong() }
 
-        val operations = listOf(times, plus)
+        private val operations = listOf(times, plus)
+        private val operationsWithConcatenation = listOf(concatenate) + operations
 
-        private fun permutedOperations(operations: List<(Long, Long) -> Long>, depth: Int): List<List<(Long, Long) -> Long>> {
+        private fun permutedOperationsPlusAndTimes(depth: Int) = permutedOperations(operations, depth)
+        private fun permutedOperationsConcatenation(depth: Int) = permutedOperations(operationsWithConcatenation, depth)
+
+        private fun permutedOperations(
+            operations: List<(Long, Long) -> Long>,
+            depth: Int
+        ): List<List<(Long, Long) -> Long>> {
             if (depth == 1) return operations.map { listOf(it) }
 
             val previousPermutations = permutedOperations(operations, depth - 1)
@@ -49,13 +63,21 @@ class DaySeven(private val inputFilePath: String = "src/main/resources/day7/inpu
             }
         }
 
-        fun isSolvable(): Boolean {
-            permutedOperations(operations, numberOfOperations).forEach { operations ->
+        fun isSolvableWithConcatenation(): Boolean {
+            permutedOperationsConcatenation(numberOfOperations).forEach { operations ->
                 if (calculate(operations) == result) return true
             }
             return false
         }
-        private fun calculate(operations: List<(Long, Long)->Long>) : Long {
+
+        fun isSolvableWithPlusAndMul(): Boolean {
+            permutedOperationsPlusAndTimes(numberOfOperations).forEach { operations ->
+                if (calculate(operations) == result) return true
+            }
+            return false
+        }
+
+        private fun calculate(operations: List<(Long, Long) -> Long>): Long {
             return variables.reduceIndexed { index, acc, variable ->
                 if (index == 0) acc else operations[index - 1](acc, variable)
             }

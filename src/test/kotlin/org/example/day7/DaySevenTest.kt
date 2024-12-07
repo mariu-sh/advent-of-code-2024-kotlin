@@ -16,6 +16,12 @@ class DaySevenTest{
     @Test
     fun shouldSolvePartOneFromRealInput(){
         val result = DaySeven(realInputPath).solve()
-        assertThat(result.first).isEqualTo(1153997401072)
+        assertThat(result.first).isEqualTo(1153997401072L)
+    }
+
+    @Test
+    fun shouldSolvePartTwo(){
+        val result = DaySeven(testInputPath).solve()
+        assertThat(result.second).isEqualTo(11387L)
     }
 }
