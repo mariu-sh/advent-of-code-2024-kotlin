@@ -36,7 +36,7 @@ fun main() {
     println("Day 7 Solutions:")
     val daySevenResults = DaySeven().solve()
     println("DaySeven PartOne: ${daySevenResults.first}")
-    println("DaySeven PartTwo: ${daySevenResults.second}")   //TODO: To solve
+    println("DaySeven PartTwo: ${daySevenResults.second}")
 
 }
 
