@@ -6,6 +6,7 @@ import org.example.day3.DayThree
 import org.example.day4.DayFour
 import org.example.day5.DayFive
 import org.example.day6.DaySix
+import org.example.day7.DaySeven
 
 fun main() {
     println("Day 1 Solutions:")
@@ -30,6 +31,12 @@ fun main() {
     println("Day 6 Solutions:")
     val daySixResult = DaySix().solve()
     println("DaySix PartOne: ${daySixResult.first}")
-    println("DaySix PartTwo: ${daySixResult.second}")
+    println("DaySix PartTwo: ${daySixResult.second}")   //TODO: To solve
+
+    println("Day 7 Solutions:")
+    val daySevenResults = DaySeven().solve()
+    println("DaySeven PartOne: ${daySevenResults.first}")
+    println("DaySeven PartTwo: ${daySevenResults.second}")   //TODO: To solve
+
 }
 
