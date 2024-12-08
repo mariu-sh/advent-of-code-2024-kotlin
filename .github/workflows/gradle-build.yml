@@ -3,7 +3,7 @@ name: Gradle Build
 on:
   push:
     branches:
-      - '**'
+      - master
   pull_request:
     branches:
       - master  # Trigger on pull requests targeting the master branch
