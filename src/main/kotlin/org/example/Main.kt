@@ -42,6 +42,7 @@ fun main() {
     println("Day 8 Solutions:")
     with(DayEight().solve()){
         println("Antinodes total count: ${this.first}")
+        println("Metadata total count: ${this.second}")
     }
 
 }
